@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainConstraint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewBottom0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#5591EC"
+        app:cardCornerRadius="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/innerConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView200"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_light"
+                android:text="Quantity to pick:"
+                android:textColor="#FBFBFB"
+                android:textSize="11sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView0"
+                app:layout_constraintTop_toTopOf="@id/innerConstraint" />
+
+            <TextView
+                android:id="@+id/textView210"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_light"
+                android:text="Sequence Number:"
+                android:textColor="#FBFBFB"
+                android:textSize="11sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView0"
+                app:layout_constraintTop_toBottomOf="@+id/textView200" />
+
+            <TextView
+                android:id="@+id/textView220"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_light"
+                android:text="Description:"
+                android:textColor="#FBFBFB"
+                android:textSize="11sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView0"
+                app:layout_constraintTop_toBottomOf="@+id/textView210" />
+
+            <TextView
+                android:id="@+id/descriptionTextView1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="Description of the item"
+                android:textColor="#FBFBFB"
+                android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView0"
+                app:layout_constraintTop_toBottomOf="@+id/textView220" />
+
+            <TextView
+                android:id="@+id/textView150"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/inter_light"
+                android:text="Item Code :"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView180"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_light"
+                android:text="Location :"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/itemCodeTextView0" />
+
+            <TextView
+                android:id="@+id/itemCodeTextView0"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Item Code"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@+id/textView150"
+                app:layout_constraintTop_toBottomOf="@+id/textView150" />
+
+            <TextView
+                android:id="@+id/qToPickTextView0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="--"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/textView200"
+                app:layout_constraintTop_toTopOf="@+id/textView200" />
+
+            <TextView
+                android:id="@+id/seqTextView0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="--"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/textView210"
+                app:layout_constraintTop_toTopOf="@+id/textView210" />
+
+            <TextView
+                android:id="@+id/locationTextView0"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Location"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView180"
+                app:layout_constraintTop_toBottomOf="@+id/textView180" />
+
+            <ImageView
+                android:id="@+id/imageView0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="115dp"
+                android:background="#FDFDFD"
+                android:src="@drawable/line"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.koushikjoshi.glaukous_androidtask
 import android.R.attr.button
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.renderscript.ScriptGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +11,17 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.koushikjoshi.glaukous_androidtask.databinding.RecyclerViewBg2Binding
 import com.koushikjoshi.glaukous_androidtask.databinding.RecyclerViewBgBinding
 
 
-class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
+class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>(){
 
 //    Inner class that returns RecyclerView's ViewHolder
-    inner class TodoViewHolder(val binding: RecyclerViewBgBinding) : RecyclerView.ViewHolder(binding.root)
+
+    inner class TodoViewHolder(val binding : RecyclerViewBgBinding) : RecyclerView.ViewHolder(binding.root)
+
+
 
 //    DiffUtil for faster loading of RecyclerView
     private val diffCallback = object : DiffUtil.ItemCallback<Item>(){
@@ -41,7 +46,9 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     override fun getItemCount() = todos.size
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
+
         return TodoViewHolder(RecyclerViewBgBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
