@@ -89,8 +89,6 @@ class HomeFragment : Fragment() {
         waveText = requireView().findViewById(R.id.waveNumberTextView)
         percentText = requireView().findViewById(R.id.percentageTextView)
 
-        ofText.visibility = View.GONE
-
 //         Initialize all views from CardViewBottom
 
         itemCodeText = requireView().findViewById(R.id.itemCodeTextView)
