@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +22,24 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+//    declaring top cardview variables
+
+    private lateinit var batchText: TextView
+    private lateinit var ofText: TextView
+    private lateinit var itemsPickedText: TextView
+    private lateinit var itemsRemainingText: TextView
+    private lateinit var zoneText: TextView
+    private lateinit var skuText: TextView
+
+//    declaring second cardview variables
+
+    private lateinit var itemCodeText: TextView
+    private lateinit var locationText: TextView
+    private lateinit var quantityText: TextView
+    private lateinit var sequenceNumText: TextView
+    private lateinit var descriptionText: TextView
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,6 +55,27 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //        Initialize all views from CardViewTop
+
+        batchText = requireView().findViewById(R.id.batchText)
+        ofText = requireView().findViewById(R.id.ofTextView)
+        itemsPickedText = requireView().findViewById(R.id.itemsPickedTextView)
+        itemsRemainingText = requireView().findViewById(R.id.itemsRemainingTextView)
+        zoneText = requireView().findViewById(R.id.zoneTextView)
+        skuText = requireView().findViewById(R.id.skuTextView)
+
+//         Initialize all views from CardViewBottom
+
+        itemCodeText = requireView().findViewById(R.id.itemCodeTextView)
+        locationText = requireView().findViewById(R.id.locationTextView)
+        quantityText = requireView().findViewById(R.id.qToPickTextView)
+        sequenceNumText = requireView().findViewById(R.id.seqTextView)
+        descriptionText = requireView().findViewById(R.id.descriptionTextView)
 
     }
 
