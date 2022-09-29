@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
     private lateinit var sequenceNumText: TextView
     private lateinit var descriptionText: TextView
 
-
+//     declaring todoAdapter and Binding
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var binding: FragmentHomeBinding
 
@@ -64,16 +64,17 @@ class HomeFragment : Fragment() {
         }
     }
 
+//    method that gets called when View is getting created
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_home, container, false)
         return binding.root
     }
 
+//    Method that gets called after view is created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -100,22 +101,24 @@ class HomeFragment : Fragment() {
 
         progressBar = requireView().findViewById(R.id.progressBar)
 
+//        Calling method to add elements to recyclerView
         setupRecyclerView()
 
+//        Launching coroutine to make API request
         lifecycleScope.launchWhenCreated {
-//            make progressbar visible
 
             var BatchNum = RetrofitInstance.api.getBatchNum().body()?.batchNumber
 
             var firstResponse = RetrofitInstance.api.getBatchNum()
 
+//            Chaning textViews as per response from API
             batchText.text = "Batch "+BatchNum.toString()
             zoneText.text = firstResponse.body()?.zone.toString()
             skuText.text = firstResponse.body()?.numberOfSKUs.toString()
             waveText.text = firstResponse.body()?.waveNumber.toString()
 
 
-
+//          Storing response
             var response = try {
                 RetrofitInstance.api.getTodos(BatchNum.toString())
             } catch (e: IOException){
@@ -131,16 +134,24 @@ class HomeFragment : Fragment() {
             }
 
             if(response.isSuccessful && response.body() != null){
+
+//                Sending data to recyclerview
                 todoAdapter.todos = response.body()!!.data.items!!
+
+//                Changing textView as per response
                 itemsPickedText.text = response.body()!!.data.totalQuantityPicked.toString()
                 itemsRemainingText.text = response.body()!!.data.totalQuantityToBePicked.toString()
+
+//                Calculating Percentage
                 var percentage = 100 * Integer.valueOf(response.body()!!.data.totalQuantityPicked) / (Integer.valueOf(response.body()!!.data.totalQuantityPicked) + Integer.valueOf(response.body()!!.data.totalQuantityToBePicked))
                 percentText.text = percentage.toString()+"%"
 
+//                Changing progressBar value as per the percentage
                 currentProgress = currentProgress+percentage
                 progressBar.setProgress(currentProgress)
                 progressBar.max = 100
 
+//                Changing bottom cardView as per the response
                 itemCodeText.text = response.body()!!.data.items[0].itemCode.toString()
                 locationText.text = response.body()!!.data.items[0].locationID.toString()
                 quantityText.text = response.body()!!.data.items[0].quantityToBePicked.toString()
@@ -156,6 +167,9 @@ class HomeFragment : Fragment() {
 
     }
 
+
+//    Function to add items in recyclerview
+
     private fun setupRecyclerView() = binding.rvTodos.apply {
         todoAdapter = TodoAdapter()
         adapter = todoAdapter
@@ -163,6 +177,7 @@ class HomeFragment : Fragment() {
     }
 
 
+// Boilerplate code
 
     companion object {
         @JvmStatic

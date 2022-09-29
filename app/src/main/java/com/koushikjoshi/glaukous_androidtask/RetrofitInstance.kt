@@ -6,6 +6,8 @@ import retrofit2.create
 
 object RetrofitInstance {
 
+//    build retrofit URL and store response in data class
+
     val api: TodoApi by lazy {
         Retrofit.Builder()
             .baseUrl("https://ptl-stageapi.manarsh.com")

@@ -9,10 +9,11 @@ import retrofit2.http.Query
 interface TodoApi {
     var batchNum: Int
 
+//    Making a get request to API containing data
     @GET("api/Picking/GetPickingItems/{id}")
     suspend fun getTodos(@Path("id") batch: String): Response<TodoFirstX>
-//    suspend fun getTodos(): Response<TodoFirstX>
 
+//    Making a get request to API containing batch number
     @GET("api/Picking/StartBatch")
     suspend fun getBatchNum(): Response<BatchNumData>
 }
