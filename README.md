@@ -33,3 +33,7 @@ This fragment is inflated in the FrameLayout when the home button is pressed.
 
 - Retrofit
 - Kotlin Data Classes
+
+# Download the APK:
+
+You can send a request to download the apk [here](https://drive.google.com/file/d/1Kol2n9XpbVIpnS3ECTXwnRiVtHEjT_r5/view?usp=sharing)
