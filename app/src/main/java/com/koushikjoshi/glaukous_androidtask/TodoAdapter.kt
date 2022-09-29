@@ -13,17 +13,17 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     inner class TodoViewHolder(val binding: RecyclerViewBgBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<TodoFirst>(){
-        override fun areItemsTheSame(oldItem: TodoFirst, newItem: TodoFirst): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<Item>(){
+        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
             return oldItem.id == newItem.id
         }
-        override fun areContentsTheSame(oldItem: TodoFirst, newItem: TodoFirst): Boolean {
+        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
             return oldItem == newItem
         }
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
-    var todos : List<TodoFirst>
+    var todos : List<Item>
         get() = differ.currentList
         set(value){
             differ.submitList(value)

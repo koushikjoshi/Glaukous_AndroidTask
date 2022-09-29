@@ -75,7 +75,7 @@
 
             <TextView
                 android:id="@+id/recyclerItemCodeTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
@@ -90,42 +90,36 @@
                 android:id="@+id/recyclerLocationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
                 android:text="SJUs287"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerItemCodeTextView"
                 app:layout_constraintStart_toStartOf="@+id/textView26"
-                app:layout_constraintTop_toBottomOf="@+id/textView26"
+                app:layout_constraintTop_toBottomOf="@+id/textView14"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/recyclerPickedTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
                 android:text="--"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerLocationTextView"
                 app:layout_constraintStart_toStartOf="@+id/textView16"
-                app:layout_constraintTop_toBottomOf="@+id/textView16"
+                app:layout_constraintTop_toTopOf="@+id/recyclerLocationTextView"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/recyclerQuantityTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="10dp"
                 android:text="--"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerPickedTextView"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/recyclerPickedTextView"
                 app:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

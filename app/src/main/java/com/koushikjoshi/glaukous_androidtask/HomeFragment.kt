@@ -1,6 +1,7 @@
 package com.koushikjoshi.glaukous_androidtask
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -92,12 +93,25 @@ class HomeFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
 //            make progressbar visible
 
-            val response = try {
-                RetrofitInstance.api.getTodos("6")
+            var response = try {
+                RetrofitInstance.api.getTodos()
             } catch (e: IOException){
+
+                Log.e("HomeFragment", "IOException")
+                return@launchWhenCreated
 
             }catch (e: HttpException){
 
+                Log.e("HomeFragment", "HttpException")
+                return@launchWhenCreated
+
+            }
+
+            if(response.isSuccessful && response.body() != null){
+                todoAdapter.todos = response.body()!!.data.items!!
+            }
+            else{
+                Log.e("HomeFragment", "Unsuccesful Response")
             }
 
         }
