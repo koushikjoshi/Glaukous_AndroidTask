@@ -1,13 +1,17 @@
 package com.koushikjoshi.glaukous_androidtask
 
+import android.R.attr.button
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputBinding
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.koushikjoshi.glaukous_androidtask.databinding.FragmentHomeBinding
 import com.koushikjoshi.glaukous_androidtask.databinding.RecyclerViewBgBinding
+
 
 class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
@@ -40,6 +44,8 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
+        if(todos[position].sequenceID!=1){
+
         holder.binding.apply {
             val todo = todos[position]
             recyclerItemCodeTextView.text = todo.itemCode
@@ -47,6 +53,18 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
             recyclerPickedTextView.text = todo.quantityPicked.toString()
             recyclerQuantityTextView.text = todo.quantityToBePicked.toString()
 
+
+            var recyclerDrawable: Drawable = recyclerCardView.getBackground()
+            recyclerDrawable = DrawableCompat.wrap(recyclerDrawable!!)
+            if(todo.quantityPicked < todo.quantityToBePicked){
+                DrawableCompat.setTint(recyclerDrawable, Color.parseColor("#FEF3E9"))
+                recyclerCardView.background = recyclerDrawable
+            }
+
+        }
+        }
+        else{
+            holder.binding.recyclerCardView.visibility = View.GONE
         }
     }
 

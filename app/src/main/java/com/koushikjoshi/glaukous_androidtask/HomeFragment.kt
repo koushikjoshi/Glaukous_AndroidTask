@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +37,8 @@ class HomeFragment : Fragment() {
     private lateinit var itemsRemainingText: TextView
     private lateinit var zoneText: TextView
     private lateinit var skuText: TextView
+    private lateinit var waveText: TextView
+    private lateinit var percentText: TextView
 
 //    declaring second cardview variables
 
@@ -48,6 +51,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var todoAdapter: TodoAdapter
     private lateinit var binding: FragmentHomeBinding
+
+    private var currentProgress = 0
+    private lateinit var progressBar: ProgressBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +85,10 @@ class HomeFragment : Fragment() {
         itemsRemainingText = requireView().findViewById(R.id.itemsRemainingTextView)
         zoneText = requireView().findViewById(R.id.zoneTextView)
         skuText = requireView().findViewById(R.id.skuTextView)
+        waveText = requireView().findViewById(R.id.waveNumberTextView)
+        percentText = requireView().findViewById(R.id.percentageTextView)
+
+        ofText.visibility = View.GONE
 
 //         Initialize all views from CardViewBottom
 
@@ -88,13 +98,26 @@ class HomeFragment : Fragment() {
         sequenceNumText = requireView().findViewById(R.id.seqTextView)
         descriptionText = requireView().findViewById(R.id.descriptionTextView)
 
+        progressBar = requireView().findViewById(R.id.progressBar)
+
         setupRecyclerView()
 
         lifecycleScope.launchWhenCreated {
 //            make progressbar visible
 
+            var BatchNum = RetrofitInstance.api.getBatchNum().body()?.batchNumber
+
+            var firstResponse = RetrofitInstance.api.getBatchNum()
+
+            batchText.text = "Batch "+BatchNum.toString()
+            zoneText.text = firstResponse.body()?.zone.toString()
+            skuText.text = firstResponse.body()?.numberOfSKUs.toString()
+            waveText.text = firstResponse.body()?.waveNumber.toString()
+
+
+
             var response = try {
-                RetrofitInstance.api.getTodos()
+                RetrofitInstance.api.getTodos(BatchNum.toString())
             } catch (e: IOException){
 
                 Log.e("HomeFragment", "IOException")
@@ -109,6 +132,21 @@ class HomeFragment : Fragment() {
 
             if(response.isSuccessful && response.body() != null){
                 todoAdapter.todos = response.body()!!.data.items!!
+                itemsPickedText.text = response.body()!!.data.totalQuantityPicked.toString()
+                itemsRemainingText.text = response.body()!!.data.totalQuantityToBePicked.toString()
+                var percentage = 100 * Integer.valueOf(response.body()!!.data.totalQuantityPicked) / (Integer.valueOf(response.body()!!.data.totalQuantityPicked) + Integer.valueOf(response.body()!!.data.totalQuantityToBePicked))
+                percentText.text = percentage.toString()+"%"
+
+                currentProgress = currentProgress+percentage
+                progressBar.setProgress(currentProgress)
+                progressBar.max = 100
+
+                itemCodeText.text = response.body()!!.data.items[0].itemCode.toString()
+                locationText.text = response.body()!!.data.items[0].locationID.toString()
+                quantityText.text = response.body()!!.data.items[0].quantityToBePicked.toString()
+                sequenceNumText.text = response.body()!!.data.items[0].sequenceID.toString()
+                descriptionText.text = response.body()!!.data.items[0].itemDescription.toString()
+
             }
             else{
                 Log.e("HomeFragment", "Unsuccesful Response")
