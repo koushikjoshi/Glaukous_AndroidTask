@@ -1,11 +1,16 @@
 package com.koushikjoshi.glaukous_androidtask
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.koushikjoshi.glaukous_androidtask.databinding.FragmentHomeBinding
+import retrofit2.HttpException
+import java.io.IOException
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,6 +45,10 @@ class HomeFragment : Fragment() {
     private lateinit var descriptionText: TextView
 
 
+    private lateinit var todoAdapter: TodoAdapter
+    private lateinit var binding: FragmentHomeBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -52,15 +61,16 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-
+//        return inflater.inflate(R.layout.fragment_home, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //        Initialize all views from CardViewTop
+//         Initialize all views from CardViewTop
 
         batchText = requireView().findViewById(R.id.batchText)
         ofText = requireView().findViewById(R.id.ofTextView)
@@ -77,7 +87,30 @@ class HomeFragment : Fragment() {
         sequenceNumText = requireView().findViewById(R.id.seqTextView)
         descriptionText = requireView().findViewById(R.id.descriptionTextView)
 
+        setupRecyclerView()
+
+        lifecycleScope.launchWhenCreated {
+//            make progressbar visible
+
+            val response = try {
+                RetrofitInstance.api.getTodos("6")
+            } catch (e: IOException){
+
+            }catch (e: HttpException){
+
+            }
+
+        }
+
     }
+
+    private fun setupRecyclerView() = binding.rvTodos.apply {
+        todoAdapter = TodoAdapter()
+        adapter = todoAdapter
+        layoutManager = LinearLayoutManager(view?.context)
+    }
+
+
 
     companion object {
         @JvmStatic
