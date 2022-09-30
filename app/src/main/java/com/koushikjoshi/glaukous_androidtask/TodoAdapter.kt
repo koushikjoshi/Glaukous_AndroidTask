@@ -36,7 +36,7 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>(){
 
 //     convert diffutil list into todos with get and set method
 
-    var todos : MutableList<Item>
+    var todos : List<Item>
         get() = differ.currentList
         set(value){
             differ.submitList(value)
