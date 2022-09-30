@@ -106,11 +106,11 @@ class HomeFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
 
             var BatchNum = RetrofitInstance.api.getBatchNum().body()?.batchNumber
-
+            var waveNum = RetrofitInstance.api.getBatchNum().body()?.waveNumber
             var firstResponse = RetrofitInstance.api.getBatchNum()
 
 //            Chaning textViews as per response from API
-            batchText.text = "Batch "+BatchNum.toString()
+            batchText.text = "Wave "+waveNum.toString()
             zoneText.text = firstResponse.body()?.zone.toString()
             skuText.text = firstResponse.body()?.numberOfSKUs.toString()
             waveText.text = firstResponse.body()?.waveNumber.toString()
@@ -150,11 +150,22 @@ class HomeFragment : Fragment() {
                 progressBar.max = 100
 
 //                Changing bottom cardView as per the response
-                itemCodeText.text = response.body()!!.data.items[0].itemCode.toString()
-                locationText.text = response.body()!!.data.items[0].locationID.toString()
-                quantityText.text = response.body()!!.data.items[0].quantityToBePicked.toString()
-                sequenceNumText.text = response.body()!!.data.items[0].sequenceID.toString()
-                descriptionText.text = response.body()!!.data.items[0].itemDescription.toString()
+                var min = Integer.MAX_VALUE
+                var pos = -1
+                var i = 0
+                response.body()!!.data.items.forEach{
+                    if(it.status==0 && it.sequenceID<min){
+                        min = it.sequenceID
+                        pos = i
+                    }
+                    i++
+                }
+
+                itemCodeText.text = response.body()!!.data.items[pos].itemCode.toString()
+                locationText.text = response.body()!!.data.items[pos].locationID.toString()
+                quantityText.text = response.body()!!.data.items[pos].quantityToBePicked.toString()
+                sequenceNumText.text = response.body()!!.data.items[pos].sequenceID.toString()
+                descriptionText.text = response.body()!!.data.items[pos].itemDescription.toString()
 
             }
             else{

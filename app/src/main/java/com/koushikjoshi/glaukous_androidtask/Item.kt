@@ -1,6 +1,6 @@
 package com.koushikjoshi.glaukous_androidtask
 
-data class Item(
+data class Item (
     val boxBarcode: String,
     val id: Any,
     val itemBarcode: String,
@@ -12,4 +12,8 @@ data class Item(
     val sequenceID: Int,
     val shortageQuantity: Int,
     val status: Int
-)
+) : Comparable<Item> {
+    override fun compareTo(other: Item): Int {
+        return if (status !=0 && status < other.status) -1 else if (status!=0 && status == other.status) 0 else 1
+    }
+}

@@ -33,7 +33,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="17dp"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Batch --"
+                    android:text="Wave --"
                     android:textColor="#000000"
                     android:textSize="17sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_font"
-                    android:text="of 05"
+                    android:text="of 5 Waves"
                     android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="@+id/batchText"
                     app:layout_constraintTop_toBottomOf="@+id/batchText" />
