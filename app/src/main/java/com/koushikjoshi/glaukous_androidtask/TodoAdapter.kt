@@ -2,6 +2,7 @@ package com.koushikjoshi.glaukous_androidtask
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,12 +59,15 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>(){
 
 //        if sequenceID is the least among status 0, only then add elements to recyclerview
 
+
+        todos = todos.sortedWith(compareByDescending<Item>{it.quantityToBePicked})
+
         var min = Integer.MAX_VALUE
         var pos = -1
         var i = 0
         todos.forEach{
-            if(it.status==0 && it.sequenceID<min){
-                min = it.sequenceID
+            if(it.status==0 && it.quantityToBePicked<=min){
+                min = it.quantityToBePicked
                 pos = i
             }
             i++
@@ -99,6 +103,8 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>(){
 
             }
 
+            Log.i("sequence elements 1", todos.toString())
+
         }
         }
         else{
@@ -113,14 +119,17 @@ class TodoAdapter: RecyclerView.Adapter<TodoAdapter.TodoViewHolder>(){
 //            it.status
 //        }
 
-        todos = todos.sortedWith(compareBy<Item>{it.status}.thenByDescending{it.quantityToBePicked}) as MutableList<Item>
+//        todos = todos.sortedWith(compareBy<Item>{it.status}.thenByDescending{it.quantityToBePicked}) as MutableList<Item>
 
+        Log.i("sequence elements after sorting", todos.toString())
         var modifiableList: List<Item> = todos
 
         var statPos = 0
         while(todos[statPos].status==0){
             statPos++
         }
+
+
 
         var lastPosVar = 0
         

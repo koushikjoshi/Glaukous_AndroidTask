@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
     private lateinit var quantityText: TextView
     private lateinit var sequenceNumText: TextView
     private lateinit var descriptionText: TextView
+    private lateinit var cardViewBottom: CardView
 
 //     declaring todoAdapter and Binding
     private lateinit var todoAdapter: TodoAdapter
@@ -80,6 +82,8 @@ class HomeFragment : Fragment() {
 
 //         Initialize all views from CardViewTop
 
+
+
         batchText = requireView().findViewById(R.id.batchText)
         ofText = requireView().findViewById(R.id.ofTextView)
         itemsPickedText = requireView().findViewById(R.id.itemsPickedTextView)
@@ -90,6 +94,9 @@ class HomeFragment : Fragment() {
         percentText = requireView().findViewById(R.id.percentageTextView)
 
 //         Initialize all views from CardViewBottom
+
+        cardViewBottom = requireView().findViewById(R.id.cardViewBottom)
+        cardViewBottom.visibility = View.GONE
 
         itemCodeText = requireView().findViewById(R.id.itemCodeTextView)
         locationText = requireView().findViewById(R.id.locationTextView)
@@ -153,19 +160,37 @@ class HomeFragment : Fragment() {
                 var min = Integer.MAX_VALUE
                 var pos = -1
                 var i = 0
+                var zeroExists = false
                 response.body()!!.data.items.forEach{
-                    if(it.status==0 && it.sequenceID<min){
-                        min = it.sequenceID
-                        pos = i
+                    if(it.status==0){
+                        zeroExists = true
                     }
                     i++
                 }
 
-                itemCodeText.text = response.body()!!.data.items[pos].itemCode.toString()
-                locationText.text = response.body()!!.data.items[pos].locationID.toString()
-                quantityText.text = response.body()!!.data.items[pos].quantityToBePicked.toString()
-                sequenceNumText.text = response.body()!!.data.items[pos].sequenceID.toString()
-                descriptionText.text = response.body()!!.data.items[pos].itemDescription.toString()
+                if(zeroExists){
+                    response.body()!!.data.items.forEach{
+                        if(it.status==0 && it.sequenceID<min){
+                            min = it.sequenceID
+                            pos = i
+
+                            cardViewBottom.visibility = View.VISIBLE
+
+                            itemCodeText.text = response.body()!!.data.items[pos].itemCode.toString()
+                            locationText.text = response.body()!!.data.items[pos].locationID.toString()
+                            quantityText.text = response.body()!!.data.items[pos].quantityToBePicked.toString()
+                            sequenceNumText.text = response.body()!!.data.items[pos].sequenceID.toString()
+                            descriptionText.text = response.body()!!.data.items[pos].itemDescription.toString()
+
+
+                        }
+                        i++
+                    }
+                }
+
+
+
+
 
             }
             else{
